@@ -1,0 +1,131 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May 29 10:10:07 2018
+
+@author: hu
+"""
+
+import pymysql
+import pandas.io.sql as sql
+import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib import font_manager
+
+zh_font=font_manager.FontProperties(fname=r'C:\WINDOWS\Fonts\simsun.ttc',size=12)
+#get data from mysql
+db=pymysql.connect("localhost","root","0124","lith",charset='utf8')
+df=sql.read_sql_query("select * from element where wellname='BZ22-1-2'" , db)
+
+#岩性
+lith_type=list(pd.Series(df["Lith"].values).unique())
+#df1=ds.value_counts()
+num=len(lith_type)
+mulu=list(df.columns)
+mulu_num=len(df.columns)
+
+print(lith_type,num,mulu,mulu_num,mulu.index('Fe'))
+#lith_a=['粉砂岩','细砂岩', '灰质粉砂岩', '泥质粉砂岩', '含砾细砂岩'] 
+
+
+#for i in lith_type:
+#    df1=df[[mulu[3],mulu[12],mulu[14]]][(df.Lith==i)]
+#    x=df1[df1.columns[0]].values
+#    y=df1[df1.columns[1]].values
+#    plt.scatter(x,y,label=i)
+
+#不分岩性作图
+#for i in range(2,12):
+#    for j in range(i+1,13):
+#        x=df[df.columns[i]].values
+#        y=df[df.columns[j]].values
+#        plt.xlabel(df.columns[i],fontproperties=zh_font)
+#        plt.ylabel(df.columns[j],fontproperties=zh_font)
+#        plt.scatter(x,y)
+#        plt.savefig("%s和%s图.png"%(df.columns[i],df.columns[j]))
+#        plt.show()
+
+
+#分岩性分别作图
+#for n in lith_type:
+#    for i in range(mulu.index('Mg'),mulu_num-2):
+#        for j in range(i+1,mulu_num-2):
+#            if i!=j:
+#                df1=df[[mulu[i],mulu[j]]][(df.Lith==n)]
+#                x=df1[df1.columns[0]].values
+#                y=df1[df1.columns[1]].values
+#                plt.xlabel(df1.columns[0],fontproperties=zh_font)
+#                plt.ylabel(df1.columns[1],fontproperties=zh_font)
+#                plt.title("%s的%s和%s对比图.png"%(n,df1.columns[0],df1.columns[1]),fontproperties=zh_font)
+#                xmin=df[df.columns[i]].values.min()
+#                xmax=df[df.columns[i]].values.max()
+#                ymin=df[df.columns[j]].values.min()
+#                ymax=df[df.columns[j]].values.max()
+#                plt.scatter(x,y,label=n)
+#                plt.xlim(xmin,xmax)
+#                plt.ylim(ymin,ymax)
+#                plt.savefig("%s的%s和%s图.png"%(n,df1.columns[0],df1.columns[1]))
+#                plt.show()
+
+#分岩性做两两对比图
+
+#for i in range(2,13):
+#    for j in range(2,13):
+#        if i!=j:
+#            for n in lith_type[:6]:
+#                
+#                for m in lith_type[:6]:
+#                    if n!=m:
+#                        df1=df[[mulu[i],mulu[j]]][(df.Lith==n)]
+#                        x=df1[df1.columns[0]].values
+#                        y=df1[df1.columns[1]].values
+#                        plt.xlabel(df1.columns[0],fontproperties=zh_font)
+#                        plt.ylabel(df1.columns[1],fontproperties=zh_font)
+#                        plt.title("%s和%s对比图.png"%(df1.columns[0],df1.columns[1]),fontproperties=zh_font)
+#                        xmin=df[df.columns[i]].values.min()
+#                        xmax=df[df.columns[i]].values.max()
+#                        ymin=df[df.columns[j]].values.min()
+#                        ymax=df[df.columns[j]].values.max()
+#                        plt.scatter(x,y,label=n)
+#                        
+#                        df1=df[[mulu[i],mulu[j]]][(df.Lith==m)]
+#                        x=df1[df1.columns[0]].values
+#                        y=df1[df1.columns[1]].values
+#                        plt.scatter(x,y,label=m)
+#                        
+#                        
+#                        plt.xlim(xmin,xmax)
+#                        plt.ylim(ymin,ymax)
+#                        plt.legend(prop=zh_font)
+#                        plt.savefig("%s和%s的%s和%s图.png"%(n,m,df1.columns[0],df1.columns[1]))
+#                        plt.show()
+
+#分岩性做合图
+
+#for i in range(2,13):
+#    for j in range(2,13):
+#        if i!=j:
+#            for n in lith_a:
+#                if n!=m:
+#                    df1=df[[mulu[i],mulu[j]]][(df.Lith==n)]
+#                    x=df1[df1.columns[0]].values
+#                    y=df1[df1.columns[1]].values
+#                    plt.xlabel(df1.columns[0],fontproperties=zh_font)
+#                    plt.ylabel(df1.columns[1],fontproperties=zh_font)
+#                    plt.title("%s和%s对比图.png"%(df1.columns[0],df1.columns[1]),fontproperties=zh_font)
+##                    xmin=df[df.columns[i]].values.min()
+##                    xmax=df[df.columns[i]].values.max()
+##                    ymin=df[df.columns[j]].values.min()
+##                    ymax=df[df.columns[j]].values.max()
+#                    plt.scatter(x,y,label=n)
+#                    
+#                    
+##            plt.xlim(xmin,xmax)
+##            plt.ylim(ymin,ymax)
+#            plt.legend(prop=zh_font)
+#            plt.savefig("%s和%s图.png"%(df1.columns[0],df1.columns[1]))
+#            plt.show()
+
+#plt.legend(prop=zh_font)
+#plt.show()
+
+
